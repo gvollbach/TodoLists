@@ -1,0 +1,39 @@
+<ul>
+	<!-- BEGIN item -->
+	<li class="{CSS_ROW} todo_list_item">
+		{DATA_ROW}
+	</li>
+	<!-- END item -->
+</ul>
+<script>
+	il.TodoListHelper = (function (scope) {
+		'use strict';
+		let pub = {}, pro = {}, pri = {
+			item_done : 'item_done'
+		};
+
+		pub.underlineItem = function($that){
+			if($that.hasClass(pri.item_done)) {
+				$that.removeClass(pri.item_done);
+			} else {
+				$that.addClass(pri.item_done);
+			}
+			console.log($that, $that.hasClass(pri.item_done))
+		};
+
+		pub.registerListener = function(){
+			$( '.todo_list_item' ).off( "click");
+				$( '.todo_list_item' ).on( "click", function() {
+				pub.underlineItem($(this));
+			});
+		};
+
+		pub.protect = pro;
+		return pub;
+
+	}(il));
+
+	$( document ).ready(function() {
+		il.TodoListHelper.registerListener();
+	});
+</script>
